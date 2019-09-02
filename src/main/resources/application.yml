@@ -1,4 +1,37 @@
 spring:
+  profiles:
+    active: dev
+  application:
+    name: Bootable Appointment Consultation Web
+  thymeleaf:
+    cache: false
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+
+---
+spring:
+  profiles: dev
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    url:  jdbc:h2:mem:appointmentsDb
+    driver-class-name:  org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+      database-platform:  org.hibernate.dialect.MySQL55Dialect
+      generate-ddl: true
+      show-sql: true
+server:
+  port: 8080
+---
+
+spring:
   profiles: test
   h2:
     console:
@@ -15,5 +48,6 @@ spring:
       database-platform:  org.hibernate.dialect.MySQL55Dialect
       generate-ddl: true
       show-sql: true
+
 server:
   port: 8081
