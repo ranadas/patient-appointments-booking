@@ -15,12 +15,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Collection;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class AppointmentRepositoryUnitTest {
+public class AppointmentRepositoryTest {
 
     private final LocalDateTime APPOINTMENT_TIME = LocalDateTime.now() ;
 
@@ -39,31 +40,33 @@ public class AppointmentRepositoryUnitTest {
     @Test
     public void whenFindByDate_thenReturnAppointment() {
         // given
-        Patient john = Patient.builder()
+        Patient patientJohn = Patient.builder()
                 .name("John")
                 .surname("Doe")
                 .birthday(LocalDate.of(2015, Month.JULY, 29))
                 .gender(PatientGender.MALE)
                 .build();
 
-        patientRepository.save(john);
+        patientRepository.save(patientJohn);
 
-        Doctor mary = Doctor.builder()
+        Doctor DrMary = Doctor.builder()
                 .name("Mary")
                 .surname("Ann")
                 .build();
-        doctorRepository.save(mary);
+        doctorRepository.save(DrMary);
 
-        Appointment todays_appointment = Appointment.builder()
-                .doctor(mary)
-                .patient(john)
+        Appointment appointmentForTheDay = Appointment.builder()
+                .doctor(DrMary)
+                .patient(patientJohn)
+                .dateTime(APPOINTMENT_TIME)
                 .build();
-        appointmentRepository.save(todays_appointment);
+        appointmentRepository.save(appointmentForTheDay);
 
         // when
-        Collection found = appointmentRepository.findByDate(APPOINTMENT_TIME);
+        Collection appointmentFound = appointmentRepository.findByDateTime(APPOINTMENT_TIME);
+        //This is a diagnostic code : List<Appointment> all = appointmentRepository.findAll();
 
         // then
-        assertEquals(1, found.size());
+        assertEquals(1, appointmentFound.size());
     }
 }

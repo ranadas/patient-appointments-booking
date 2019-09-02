@@ -9,5 +9,5 @@ import java.util.Collection;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-    Collection<Appointment> findByDate(LocalDateTime date);
+    Collection<Appointment> findByDateTime(LocalDateTime appointmentDate);
 }
