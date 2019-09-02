@@ -2,6 +2,7 @@ package com.arzamed.patient.appointments.booking.entity;
 
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Builder
@@ -13,12 +14,15 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @NotNull
     @ManyToOne
     private Doctor doctor;
 
+    @NotNull
     @ManyToOne
     private Patient patient;
 
+    @NotNull
     private LocalDateTime dateTime;
 
 }
