@@ -7,7 +7,7 @@ import java.util.Set;
 @Builder
 @Data
 @Entity
-@Table(name = "doctor")
+@Table(name = "doctors")
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
